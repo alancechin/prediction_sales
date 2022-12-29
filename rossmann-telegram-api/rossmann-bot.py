@@ -23,6 +23,11 @@ TOKEN = '5913411341:AAGPaV0Hb9lSmnpheI1cjVN-CpPAY9_LURQ'
 # Webhook (conexão da internet com local para receber dado do numero da loja)
 #https://api.telegram.org/bot5913411341:AAGPaV0Hb9lSmnpheI1cjVN-CpPAY9_LURQ/setWebhook?url=https://3d584ca0b1335e.lhr.life
 
+# Webhook Render (definir que a mensagem escrita no BOT Telegram(/22 numero da loja) vai direto pra API como POST e retorna a predição da loja desejada)
+#https://api.telegram.org/bot5913411341:AAGPaV0Hb9lSmnpheI1cjVN-CpPAY9_LURQ/setWebhook?url=https://bot-telegram-input.onrender.com
+
+
+
 ### FUNCTIONS
 
 def send_message( chat_id, text ):
