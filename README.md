@@ -8,14 +8,32 @@
 
 ## 1. Problema de Negócio
     
-A House Rocket é uma empresa que realiza investimentos no mercado imobiliário. Tem por modelo de negócio realizar estudos sobre regiões onde deseja realizar operações e ter assertividade no portfólio de ativos imobiliários. Sua estratégia é comprar bons imóveis com lacuna de oportunidade de crescimento no preço para vender e obter lucros.
+### 1.1 Negócio
 
-### 1.1 Contexto de Negócio
-   O desafio no momento é iniciar operações no estado de Washington - EUA, na cidade de Seattle. Para isso, possui a disposição uma base de dados para análise que consiste em 21.613 vendas de imóveis realizadas entre as datas de 02/05/2014 à 27/05/2015 na cidade de Seattle - EUA. Essa base de dados conta com informações de venda de 21.436 imóveis distintos.
+A Rossmann existe desde 1972 e está representada por mais de 2150 filiais em toda a Alemanha (clique aqui para saber endereços em Berlim), segundo dados de 2019. Das drogarias na Alemanha, é a campeã de vendas. Dentre tantas marcas conhecidas, como Nivea, L’Oreal ou Schwarzkopf, vale a pena ainda destacar suas próprias marcas: Isana, Alterra, enerBio ou Babydream.
 
-### 1.2 Questão de Negócio
-   - Quais são os imóveis que a House Rocket deveria comprar e por qual preço ?
-   - Uma vez a casa comprada, qual o melhor preço para vendê-las ?
+**Fonte:** [https://www.pelaalemanha.com.br/2020/12/09/drogarias-na-alemanha/](https://www.pelaalemanha.com.br/2020/12/09/drogarias-na-alemanha/)
+
+
+### 1.2 Contexto/Motivação da Problemática
+
+CFO da empresa fez uma reunião de resultados mensais com todos os gerentes de loja e requisitou que cada um deles trouxessem uma previsão diária das próximas 6 semanas de vendas. Depois dessa reunião, vários gerentes entraram em contato, solicitando uma previsão de vendas das lojas as quais gerenciam.
+
+
+### 1.3 Entendimento do Problema de Negócio
+
+- **Problema/Questão de Negócio:**  *O que?* 
+
+Problema de Previsão diária das próximas 6 semanas de vendas.
+
+- **Causa Raiz do Problema:**  *Porque realizar esse projeto?* 
+
+CFO quer fazer investimento em reforma das lojas e precisa saber com precisão o valor que poderá investir nelas e o quanto a loja terá de retorno (vendas) para pagar esse investimento.
+
+- **Dono do Problema:** *Principal parte interessada?*
+
+CFO ou alguém muito próximo a ele.
+
 
 ## 2. Planejamento Prévio
 
