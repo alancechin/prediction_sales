@@ -141,35 +141,39 @@ Restrições de Negócio:
 ## 5. Principais Insights 
 
 **H1:** Lojas com competidores mais próximos deveriam vender menos, em média.
+
+❌ **Falsa:** 
+      
+- Lojas com competidores mais próximos não vendem menos, em média, mas também não vendem mais.
+      
+- O atributo distância do competidor não tem correlação alta com as vendas.
+
 <h1 align="center">
   <img alt="logo" title="#logo" src="./img/hipotese_1.png" />
 </h1>
       
-❌ **Falsa:** 
-      
- - Lojas com competidores mais próximos não vendem menos, em média, mas também não vendem mais.
-      
- - O atributo distância do competidor não tem correlação alta com as vendas.
-   
 
 **H2:** Lojas deveriam vender mais, em média, depois do dia 10 de cada mês.
-<h1 align="center">
-  <img alt="logo" title="#logo" src="./img/hipotese_2.png" />
-</h1>
 
  ❌ **Falsa:** 
  
  - Média de vendas diminui à medida que o dia do mês aumenta.
 
+<h1 align="center">
+  <img alt="logo" title="#logo" src="./img/hipotese_2.png" />
+</h1>
+
 
 **H3:** Lojas deveriam vender menos, em média, aos finais de semana.
-<h1 align="center">
-  <img alt="logo" title="#logo" src="./img/hipotese_3.png" />
-</h1>
 
 ✅ **Verdadeira:** 
 
 - Devido a baixa média de vendas do sábado, o fim de semana acaba ficando com uma média de vendas menor que ao longo da semana. No entanto, o domingo possui a melhor média de vendas junto com a segunda-feira.
+
+<h1 align="center">
+  <img alt="logo" title="#logo" src="./img/hipotese_3.png" />
+</h1>
+
 
 **OBS:** Mais hipóteses de negócio foram também validadas e estão presentes na seção 4.0. Análise Exploratória dos Dados no [arquivo python notebook]( https://github.com/alancechin/prediction_sales/blob/main/predict_sale_m10_finish.ipynb).
 
@@ -185,6 +189,11 @@ Foram avaliados 5 modelos os quais receberam dados de treino para aprenderem asp
 
 Com o objetivo de extrair a performance real dos modelos de *Machine Learning* dividiu-se o conjunto de dados de treino em diversas partes para medir a performance em cada uma delas (1ª parte de validação e o restante de treinamento), e assim, obter um resultado final de performance do modelo mais coerente para distintas distribuições dos dados. Para isso, foi implementado o método de validação cruzada para séries temporais (*Time Series Cross Validation*).
 
+Objetivando mensurar o quão longe a predição do seu modelo está do valor real utilizou-se as seguintes métricas de desempenho: 
+- MAE (*Mean Absolute Error*): Erro Absoluto Médio. Diferença absoluta entre o valor real e o valor predito, em média.
+- MAPE (*Mean Absolute Percentage Error*): Erro Absoluto Percentual Médio. Diferença absoluta entre o valor real e o valor predito, dividido pelo valor real, em média.
+- RMSE (*Root Mean Squared Error*): Raiz Quadrada do Erro Quadrático Médio. Diferença entre o valor real e o valor predito elevado ao quadrado, em média, e extrai a raiz quadrada.
+
 As performances de cada modelo em ordem crescente são:
 
 | Modelo | MAE | MAPE | RMSE |
@@ -199,23 +208,88 @@ Os modelos de Regressão Linear e Regressão Regularizada Lasso apresentaram per
 
 Mesmo o modelo de Random Forest Regressor apresentando a melhor performance na etapa de validação, o modelo escolhido para prosseguimento e otimização dos hiperparâmetros (*Hyperparameter Fine Tuning*) foi XGBoost Regressor. A escolha ocorreu devido ao menor tempo de processamento para treinamento do algoritmo, e pela diferença em termos de performance nas métricas de resultado não ser tão elevada.
 
+**Performance Final de Aprendizado de Máquina:**
+
 Após a otimização dos hiperparâmetros (*Hyperparameter Fine Tuning*) do modelo utilizando a estratégia de Random Search, sua performance nos dados de validação foram:
 
 |Modelo| MAE | MAPE | RMSE |
 |------|-----|------|------|
 | XGBoost Regressor | 767,25 | 0,12 | 1098,15 |
 
+*Gráfico de dispersão para analisar lojas mais difíceis de realizar predição*
+
+<h1 align="center">
+  <img alt="logo" title="#logo" src="./img/mape_versus_store.png" />
+</h1>
+
+*Análises*
+
+- Maioria das lojas possui erro médio abaixo de 20% de erro do modelo sob a média de vendas real diária ao longo de 6 semanas.
+
+- Existem de 40 a 50 lojas com erro médio abaixo de 40% e acima de 20% de erro do modelo sob a média de vendas real diária ao longo de 6 semanas.
+
+- Existem 2 lojas com erro médio acima de 50% de erro do modelo sob a média de vendas real diária ao longo de 6 semanas.
+
+
+Valor real de vendas em comparação com o valor predito para as próximas seis semanas, no período do dia 19/06/2015 à 31/07/2015, data que compreende os dados de validação. 
+ <h1 align="center">
+  <img alt="logo" title="#logo" src="./img/real_versus_predito_val.png" />
+</h1>
 
 
 ## 7. Tradução/Interpretação para Resultados Financeiros   
 
+O pior e melhor cenário para o somatório de vendas nas próximas seis semanas das lojas pode ser calculado. As 3 lojas com maior percentual de erro de predição do modelo ficariam com os seguintes cenários de vendas.
+
+|Loja| Predição | Pior cenário | Melhor cenário | MAE | MAPE |
+|----|----------|---------|---------------------|-----|------|
+| 292 | 107.134,09 | 103.762,76 | 110.505,43 | 3371,33| 0,59|
+|909|220.876,03|212.959,34|228.792,72|7916,69|0,52|
+|902|203.681,45|202.174,06|205.188,84|1507,39|0,38|
+
+Somatório predições de vendas, melhor cenário e pior cenário para todas as lojas nas próximas seis semanas:
+
+| Cenário | Valores |
+|---------|---------|
+|Predição| US$ 287.317.504,00|
+|Pior cenário|US$ 286.458.540,85|
+|Melhor cenário|US$ 288.176.494,26|
+
    
 ## 8. Modelo em Produção (*Deploy*) 
+
+Para consultar os resultados da predição de vendas do modelo para as lojas de uma forma mais interativa e remota, desenvolveu-se um BOT no Telegram. Acessível para qualquer consumidor com o app do Telegram baixado em dispositivo conectado na internet para fazer requisição na API, onde a aplicação do projeto de dados com o modelo treinado está hospedada no serviço em nuvem Render.
+
+Ao acessar o BOT no Telegram, denominado como [RossmannBot]( https://t.me/ross_predict_sale_bot), é necessário enviar uma mensagem no formato  "/store_number" (ex: /50). O Bot responderá com o valor de vendas previsto para as próximas seis semanas, caso o número da loja não esteja disponível nos dados de teste usados para a aplicação, apresentará a mensagem "ID Loja não disponível, digite outro ID de loja".
+
+ Em caso de digitar algo diferente de um número de loja entre os números 1 à 1115, apresentará a mensagem " ID Loja está errado! - confirme que você está digitando corretamento o número da loja". A imagem abaixo mostra um exemplo do funcionamento.
+
+<p align="center">
+           <img width="450" height="700" src="./img/BOT_Telegram.jpg "/>
+</p>
 
 
 ## 9. Conclusão
 
+Com o resultado alcançado, o objetivo foi atingido e o CFO da empresa pode junto ao time de operações e negócio planejar a reforma que será feita nas lojas, e assim, ter uma boa noção do orçamento (*budget*) que poderá alocar esforços para aplicar na reforma. 
+
+Além disso, ter uma previsão de vendas na operação de qualquer empresa possui diversos benefícios como melhor gestão de estoques, contratação otimizada de funcionários, melhor margem para negociar com fornecedores. Cada um destes benefícios possui retornos financeiros que podem ser extremamente significativos e podem ser estimados dado a realidade de cada empresa. 
+
 
 ## 10. Próximos Passos
+
+- Gerar novas hipóteses para buscar novos insights para o negócio;
+
+- Aplicar modelo de previsão em paralelo para predizer o número de clientes que entrará nas lojas nas próximas semanas, as quais podem ser relevantes para o modelo de previsão de vendas;
+
+- Testar outros modelos de regressão para análise de performance;
+
+- Utilizar outros métodos de otimização de hiperparâmetros como: Bayesiana, GridSearch;
+
+- Testar outros tipos de transformações de variáveis na preparação dos dados, e avaliar o impacto no desempenho dos modelos;
+
+- Derivar outras features que podem ser relevantes para o aprendizado do modelo;
+
+- Melhorar a experiência do usuário na interação com o Bot.
 
  
